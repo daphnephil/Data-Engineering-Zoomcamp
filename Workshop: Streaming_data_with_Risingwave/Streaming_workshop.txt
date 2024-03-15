@@ -1,0 +1,436 @@
+Last login: Fri Mar 15 17:50:35 on ttys011
+(base) chinaemeremohajianya@chinaemeremsair data-engineering-zoomcamp % git clone https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04.git
+cd risingwave-data-talks-workshop-2024-03-04
+Cloning into 'risingwave-data-talks-workshop-2024-03-04'...
+remote: Enumerating objects: 349, done.
+remote: Counting objects: 100% (47/47), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 349 (delta 43), reused 42 (delta 42), pack-reused 302
+Receiving objects: 100% (349/349), 46.46 MiB | 13.53 MiB/s, done.
+Resolving deltas: 100% (176/176), done.
+(base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % source commands.sh
+(base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % clean-cluster
+[+] Running 13/13
+ ✔ Container risingwave-standalone  R...                                  10.2s 
+ ✔ Container message_queue          Removed                                3.3s 
+ ✔ Container clickhouse             Removed                                1.9s 
+ ✔ Container grafana-0              Removed                                0.2s 
+ ✔ Container prometheus-0           Removed                                0.3s 
+ ✔ Container etcd-0                 Removed                                0.2s 
+ ✔ Container minio-0                Removed                                0.3s 
+ ✔ Volume docker_grafana-0          Removed                                0.1s 
+ ✔ Volume docker_message_queue      Remov...                               0.1s 
+ ✔ Volume docker_etcd-0             Removed                                0.1s 
+ ✔ Volume docker_minio-0            Removed                                0.2s 
+ ✔ Volume docker_prometheus-0       Remove...                              0.1s 
+ ✔ Network docker_default           Removed                                0.1s 
+(base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % start-cluster
+[+] Running 13/13
+ ✔ Network docker_default           Created                                0.0s 
+ ✔ Volume "docker_prometheus-0"     Crea...                                0.0s 
+ ✔ Volume "docker_message_queue"    Cre...                                 0.0s 
+ ✔ Volume "docker_etcd-0"           Created                                0.0s 
+ ✔ Volume "docker_grafana-0"        Created                                0.0s 
+ ✔ Volume "docker_minio-0"          Created                                0.0s 
+ ✔ Container message_queue          Started                                0.1s 
+ ✔ Container minio-0                Started                                0.1s 
+ ✔ Container grafana-0              Started                                0.1s 
+ ✔ Container prometheus-0           Started                                0.1s 
+ ✔ Container clickhouse             Started                                0.1s 
+ ✔ Container etcd-0                 Started                                0.1s 
+ ✔ Container risingwave-standalone  S...                                   0.0s 
+(base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % sleep 5
+(base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % seed-kafka
+Traceback (most recent call last):
+  File "/Users/chinaemeremohajianya/Library/Mobile Documents/com~apple~CloudDocs/Documents/data-engineering-zoomcamp/risingwave-data-talks-workshop-2024-03-04/./seed_kafka.py", line 9, in <module>
+    from confluent_kafka import Producer
+ModuleNotFoundError: No module named 'confluent_kafka'
+(base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+Collecting blinker==1.7.0 (from -r requirements.txt (line 1))
+  Obtaining dependency information for blinker==1.7.0 from https://files.pythonhosted.org/packages/fa/2a/7f3714cbc6356a0efec525ce7a0613d581072ed6eb53eb7b9754f33db807/blinker-1.7.0-py3-none-any.whl.metadata
+  Using cached blinker-1.7.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting click==8.1.7 (from -r requirements.txt (line 2))
+  Obtaining dependency information for click==8.1.7 from https://files.pythonhosted.org/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl.metadata
+  Using cached click-8.1.7-py3-none-any.whl.metadata (3.0 kB)
+Collecting confluent-kafka==2.3.0 (from -r requirements.txt (line 3))
+  Obtaining dependency information for confluent-kafka==2.3.0 from https://files.pythonhosted.org/packages/57/77/b43fbc947b3ef9e26a85e742af488bf05cf19c5934525f8a552c492afa5c/confluent_kafka-2.3.0-cp311-cp311-macosx_11_0_arm64.whl.metadata
+  Using cached confluent_kafka-2.3.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (2.3 kB)
+Collecting Flask==3.0.2 (from -r requirements.txt (line 4))
+  Obtaining dependency information for Flask==3.0.2 from https://files.pythonhosted.org/packages/93/a6/aa98bfe0eb9b8b15d36cdfd03c8ca86a03968a87f27ce224fb4f766acb23/flask-3.0.2-py3-none-any.whl.metadata
+  Using cached flask-3.0.2-py3-none-any.whl.metadata (3.6 kB)
+Collecting Flask-Cors==4.0.0 (from -r requirements.txt (line 5))
+  Obtaining dependency information for Flask-Cors==4.0.0 from https://files.pythonhosted.org/packages/10/69/1e6cfb87117568a9de088c32d6258219e9d1ff7c131abf74249ef2031279/Flask_Cors-4.0.0-py2.py3-none-any.whl.metadata
+  Using cached Flask_Cors-4.0.0-py2.py3-none-any.whl.metadata (5.4 kB)
+Collecting itsdangerous==2.1.2 (from -r requirements.txt (line 6))
+  Obtaining dependency information for itsdangerous==2.1.2 from https://files.pythonhosted.org/packages/68/5f/447e04e828f47465eeab35b5d408b7ebaaaee207f48b7136c5a7267a30ae/itsdangerous-2.1.2-py3-none-any.whl.metadata
+  Using cached itsdangerous-2.1.2-py3-none-any.whl.metadata (2.9 kB)
+Collecting Jinja2==3.1.3 (from -r requirements.txt (line 7))
+  Obtaining dependency information for Jinja2==3.1.3 from https://files.pythonhosted.org/packages/30/6d/6de6be2d02603ab56e72997708809e8a5b0fbfee080735109b40a3564843/Jinja2-3.1.3-py3-none-any.whl.metadata
+  Using cached Jinja2-3.1.3-py3-none-any.whl.metadata (3.3 kB)
+Collecting MarkupSafe==2.1.5 (from -r requirements.txt (line 8))
+  Obtaining dependency information for MarkupSafe==2.1.5 from https://files.pythonhosted.org/packages/11/e7/291e55127bb2ae67c64d66cef01432b5933859dfb7d6949daa721b89d0b3/MarkupSafe-2.1.5-cp311-cp311-macosx_10_9_universal2.whl.metadata
+  Using cached MarkupSafe-2.1.5-cp311-cp311-macosx_10_9_universal2.whl.metadata (3.0 kB)
+Collecting numpy==1.26.4 (from -r requirements.txt (line 9))
+  Obtaining dependency information for numpy==1.26.4 from https://files.pythonhosted.org/packages/1a/2e/151484f49fd03944c4a3ad9c418ed193cfd02724e138ac8a9505d056c582/numpy-1.26.4-cp311-cp311-macosx_11_0_arm64.whl.metadata
+  Using cached numpy-1.26.4-cp311-cp311-macosx_11_0_arm64.whl.metadata (114 kB)
+Collecting pandas==2.2.0 (from -r requirements.txt (line 10))
+  Obtaining dependency information for pandas==2.2.0 from https://files.pythonhosted.org/packages/6f/4e/63e6b79132e854a67df3d37a5c8560e45c79e2504fa57e032c1d61abb090/pandas-2.2.0-cp311-cp311-macosx_11_0_arm64.whl.metadata
+  Using cached pandas-2.2.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (19 kB)
+Collecting psycopg2==2.9.9 (from -r requirements.txt (line 11))
+  Using cached psycopg2-2.9.9-cp311-cp311-macosx_11_0_arm64.whl
+Collecting pyarrow==15.0.0 (from -r requirements.txt (line 12))
+  Obtaining dependency information for pyarrow==15.0.0 from https://files.pythonhosted.org/packages/de/33/fce52082865c1ad58ee3673f7cfbd19d24651ac2598244f940db29758da6/pyarrow-15.0.0-cp311-cp311-macosx_11_0_arm64.whl.metadata
+  Using cached pyarrow-15.0.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (3.0 kB)
+Collecting python-dateutil==2.8.2 (from -r requirements.txt (line 13))
+  Obtaining dependency information for python-dateutil==2.8.2 from https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl.metadata
+  Using cached python_dateutil-2.8.2-py2.py3-none-any.whl.metadata (8.2 kB)
+Collecting pytz==2024.1 (from -r requirements.txt (line 14))
+  Obtaining dependency information for pytz==2024.1 from https://files.pythonhosted.org/packages/9c/3d/a121f284241f08268b21359bd425f7d4825cffc5ac5cd0e1b3d82ffd2b10/pytz-2024.1-py2.py3-none-any.whl.metadata
+  Using cached pytz-2024.1-py2.py3-none-any.whl.metadata (22 kB)
+Collecting six==1.16.0 (from -r requirements.txt (line 15))
+  Obtaining dependency information for six==1.16.0 from https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl.metadata
+  Using cached six-1.16.0-py2.py3-none-any.whl.metadata (1.8 kB)
+Collecting tzdata==2024.1 (from -r requirements.txt (line 16))
+  Obtaining dependency information for tzdata==2024.1 from https://files.pythonhosted.org/packages/65/58/f9c9e6be752e9fcb8b6a0ee9fb87e6e7a1f6bcab2cdc73f02bb7ba91ada0/tzdata-2024.1-py2.py3-none-any.whl.metadata
+  Using cached tzdata-2024.1-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting Werkzeug==3.0.1 (from -r requirements.txt (line 17))
+  Obtaining dependency information for Werkzeug==3.0.1 from https://files.pythonhosted.org/packages/c3/fc/254c3e9b5feb89ff5b9076a23218dafbc99c96ac5941e900b71206e6313b/werkzeug-3.0.1-py3-none-any.whl.metadata
+  Using cached werkzeug-3.0.1-py3-none-any.whl.metadata (4.1 kB)
+Using cached blinker-1.7.0-py3-none-any.whl (13 kB)
+Using cached click-8.1.7-py3-none-any.whl (97 kB)
+Using cached confluent_kafka-2.3.0-cp311-cp311-macosx_11_0_arm64.whl (2.9 MB)
+Using cached flask-3.0.2-py3-none-any.whl (101 kB)
+Using cached Flask_Cors-4.0.0-py2.py3-none-any.whl (14 kB)
+Using cached itsdangerous-2.1.2-py3-none-any.whl (15 kB)
+Using cached Jinja2-3.1.3-py3-none-any.whl (133 kB)
+Using cached MarkupSafe-2.1.5-cp311-cp311-macosx_10_9_universal2.whl (18 kB)
+Using cached numpy-1.26.4-cp311-cp311-macosx_11_0_arm64.whl (14.0 MB)
+Using cached pandas-2.2.0-cp311-cp311-macosx_11_0_arm64.whl (11.8 MB)
+Using cached pyarrow-15.0.0-cp311-cp311-macosx_11_0_arm64.whl (24.2 MB)
+Using cached python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+Using cached pytz-2024.1-py2.py3-none-any.whl (505 kB)
+Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Using cached tzdata-2024.1-py2.py3-none-any.whl (345 kB)
+Using cached werkzeug-3.0.1-py3-none-any.whl (226 kB)
+Installing collected packages: pytz, confluent-kafka, tzdata, six, psycopg2, numpy, MarkupSafe, itsdangerous, click, blinker, Werkzeug, python-dateutil, pyarrow, Jinja2, pandas, Flask, Flask-Cors
+Successfully installed Flask-3.0.2 Flask-Cors-4.0.0 Jinja2-3.1.3 MarkupSafe-2.1.5 Werkzeug-3.0.1 blinker-1.7.0 click-8.1.7 confluent-kafka-2.3.0 itsdangerous-2.1.2 numpy-1.26.4 pandas-2.2.0 psycopg2-2.9.9 pyarrow-15.0.0 python-dateutil-2.8.2 pytz-2024.1 six-1.16.0 tzdata-2024.1
+
+[notice] A new release of pip is available: 23.2.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % seed-kafka
+INFO:root:Loading taxi zone data
+INFO:root:Checking connection to the RisingWave
+INFO:root:RisingWave started with version: PostgreSQL 9.5-RisingWave-1.6.1 (02ee186211e44001c645027bf5aca3db5f076d29)
+INFO:root:Created taxi_zone table
+INFO:root:Created 265 records in taxi_zone table
+INFO:root:Loading trip data
+INFO:root:Topic trip_data created
+INFO:root:Sending historical data
+INFO:root:Sending 100,000 records to Kafka
+INFO:root:Sent 0 records
+INFO:root:Sent 100,000 records to Kafka
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -f risingwave-sql/table/trip_data.sql
+CREATE_TABLE
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % sleep 5
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "SELECT COUNT(*) FROM trip_data"
+ count  
+--------
+ 100000
+(1 row)
+
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "CREATE MATERIALIZED VIEW latest_dropoff_time AS
+    WITH t AS (
+        SELECT MAX(tpep_dropoff_datetime) AS latest_dropoff_time
+        FROM trip_data
+    )
+    SELECT taxi_zone.Zone as taxi_zone, latest_dropoff_time
+    FROM t,
+            trip_data
+    JOIN taxi_zone
+        ON trip_data.DOLocationID = taxi_zone.location_id
+    WHERE trip_data.tpep_dropoff_datetime = t.latest_dropoff_time"
+CREATE_MATERIALIZED_VIEW
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "SELECT COUNT(*) FROM latest_dropoff_time"
+ count 
+-------
+     1
+(1 row)
+
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "SELECT * FROM latest_dropoff_time"
+   taxi_zone    | latest_dropoff_time 
+----------------+---------------------
+ Midtown Center | 2022-01-03 17:24:54
+(1 row)
+
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "SELECT * FROM trip_data LIMIT 5"
+ vendorid | tpep_pickup_datetime | tpep_dropoff_datetime | passenger_count | trip_distance | ratecodeid | store_and_fwd_flag | pulocationid | dolocationid | payment_type | fare_amount | extra | mta_tax | tip_amount | tolls_amount | improvement_surcharge | total_amount | congestion_surcharge | airport_fee 
+----------+----------------------+-----------------------+-----------------+---------------+------------+--------------------+--------------+--------------+--------------+-------------+-------+---------+------------+--------------+-----------------------+--------------+----------------------+-------------
+        2 | 2022-01-01 00:54:52  | 2022-01-01 01:03:51   |               1 |          2.83 |          1 | N                  |           79 |          229 |            1 |          10 |   0.5 |     0.5 |       2.76 |            0 |                   0.3 |        16.56 |                  2.5 |           0
+        2 | 2022-01-01 00:58:47  | 2022-01-01 01:24:38   |               1 |         16.82 |          1 | N                  |          132 |          255 |            2 |          46 |   0.5 |     0.5 |          0 |            0 |                   0.3 |        48.55 |                    0 |        1.25
+        2 | 2022-01-01 00:36:55  | 2022-01-01 00:41:46   |               1 |          0.68 |          1 | N                  |          148 |          211 |            2 |           5 |   0.5 |     0.5 |          0 |            0 |                   0.3 |          8.8 |                  2.5 |           0
+        2 | 2022-01-01 00:45:08  | 2022-01-01 00:55:40   |               1 |          1.91 |          1 | N                  |          144 |          164 |            1 |         9.5 |   0.5 |     0.5 |          0 |            0 |                   0.3 |         13.3 |                  2.5 |           0
+        2 | 2022-01-01 00:28:57  | 2022-01-01 00:35:49   |               2 |          1.49 |          1 | N                  |          224 |          170 |            1 |           7 |   0.5 |     0.5 |        2.7 |            0 |                   0.3 |         13.5 |                  2.5 |           0
+(5 rows)
+
+(END)...skipping...
+ vendorid | tpep_pickup_datetime | tpep_dropoff_datetime | passenger_count | trip_distance | ratecodeid | store_and_fwd_flag | pulocationid | dolocationid | payment_type | fare_amount | extra | mta_tax | tip_amount | tolls_amount | improvement_surcharge | total_amount | congestion_surcharge | airport_fee 
+----------+----------------------+-----------------------+-----------------+---------------+------------+--------------------+--------------+--------------+--------------+-------------+-------+---------+------------+--------------+-----------------------+--------------+----------------------+-------------
+        2 | 2022-01-01 00:54:52  | 2022-01-01 01:03:51   |               1 |          2.83 |          1 | N                  |           79 |          229 |            1 |          10 |   0.5 |     0.5 |       2.76 |            0 |                   0.3 |        16.56 |                  2.5 |           0
+        2 | 2022-01-01 00:58:47  | 2022-01-01 01:24:38   |               1 |         16.82 |          1 | N                  |          132 |          255 |            2 |          46 |   0.5 |     0.5 |          0 |            0 |                   0.3 |        48.55 |                    0 |        1.25
+        2 | 2022-01-01 00:36:55  | 2022-01-01 00:41:46   |               1 |          0.68 |          1 | N                  |          148 |          211 |            2 |           5 |   0.5 |     0.5 |          0 |            0 |                   0.3 |          8.8 |                  2.5 |           0
+        2 | 2022-01-01 00:45:08  | 2022-01-01 00:55:40   |               1 |          1.91 |          1 | N                  |          144 |          164 |            1 |         9.5 |   0.5 |     0.5 |          0 |            0 |                   0.3 |         13.3 |                  2.5 |           0
+        2 | 2022-01-01 00:28:57  | 2022-01-01 00:35:49   |               2 |          1.49 |          1 | N                  |          224 |          170 |            1 |           7 |   0.5 |     0.5 |        2.7 |            0 |                   0.3 |         13.5 |                  2.5 |           0
+(5 rows)
+
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+(END)...skipping...
+ vendorid | tpep_pickup_datetime | tpep_dropoff_datetime | passenger_count | trip_distance | ratecodeid | store_and_fwd_flag | pulocationid | dolocationid | payment_type | fare_amount | extra | mta_tax | tip_amount | tolls_amount | improvement_surcharge | total_amount | congestion_surcharge | airport_fee 
+----------+----------------------+-----------------------+-----------------+---------------+------------+--------------------+--------------+--------------+--------------+-------------+-------+---------+------------+--------------+-----------------------+--------------+----------------------+-------------
+        2 | 2022-01-01 00:54:52  | 2022-01-01 01:03:51   |               1 |          2.83 |          1 | N                  |           79 |          229 |            1 |          10 |   0.5 |     0.5 |       2.76 |            0 |                   0.3 |        16.56 |                  2.5 |           0
+        2 | 2022-01-01 00:58:47  | 2022-01-01 01:24:38   |               1 |         16.82 |          1 | N                  |          132 |          255 |            2 |          46 |   0.5 |     0.5 |          0 |            0 |                   0.3 |        48.55 |                    0 |        1.25
+        2 | 2022-01-01 00:36:55  | 2022-01-01 00:41:46   |               1 |          0.68 |          1 | N                  |          148 |          211 |            2 |           5 |   0.5 |     0.5 |          0 |            0 |                   0.3 |          8.8 |                  2.5 |           0
+        2 | 2022-01-01 00:45:08  | 2022-01-01 00:55:40   |               1 |          1.91 |          1 | N                  |          144 |          164 |            1 |         9.5 |   0.5 |     0.5 |          0 |            0 |                   0.3 |         13.3 |                  2.5 |           0
+        2 | 2022-01-01 00:28:57  | 2022-01-01 00:35:49   |               2 |          1.49 |          1 | N                  |          224 |          170 |            1 |           7 |   0.5 |     0.5 |        2.7 |            0 |                   0.3 |         13.5 |                  2.5 |           0
+(5 rows)
+
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "SELECT * FROM taxi_zone" LIMIT 5;" 
+dquote> "       
+psql: error: connection to server at "localhost" (::1), port 4566 failed: ERROR:  Failed to start a new session
+
+Caused by:
+  database "LIMIT" does not exist
+
+zsh: command not found: \n
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c " SELECT * FROM taxi_zone LIMIT 5"
+ location_id |  borough  |            zone            | service_zone 
+-------------+-----------+----------------------------+--------------
+         220 | Bronx     | Spuyten Duyvil/Kingsbridge | Boro Zone
+         202 | Manhattan | Roosevelt Island           | Boro Zone
+         236 | Manhattan | Upper East Side North      | Yellow Zone
+         237 | Manhattan | Upper East Side South      | Yellow Zone
+          17 | Brooklyn  | Bedford                    | Boro Zone
+(5 rows)
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "CREATE MATERIALIZED VIEW trip_statistics_mv AS
+SELECT
+    tz1.Zone AS start_zone,
+    tz2.Zone AS end_zone,
+    AVG(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS average_trip_time,
+    MIN(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS min_trip_time,
+    MAX(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS max_trip_time
+FROM
+    trip_data td
+JOIN
+    taxi_zones tz1 ON td.PULocationID
+ = tz1.location_id
+JOIN
+    taxi_zones tz2 ON td.DOLocationID
+ = tz2.location_id
+GROUP BY
+    tz1.Zone,
+    tz2.Zone;"
+ERROR:  Failed to run the query
+
+Caused by these errors (recent errors listed first):
+  1: Catalog error
+  2: table or source not found: taxi_zones
+
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "CREATE MATERIALIZED VIEW trip_statistics_mv AS
+SELECT
+    tz1.Zone AS start_zone,
+    tz2.Zone AS end_zone,
+    AVG(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS average_trip_time,
+    MIN(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS min_trip_time,
+    MAX(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS max_trip_time
+FROM
+    trip_data td
+JOIN
+    taxi_zone tz1 ON td.PULocationID
+ = tz1.location_id
+JOIN
+    taxi_zone tz2 ON td.DOLocationID
+ = tz2.location_id
+GROUP BY
+    tz1.Zone,
+    tz2.Zone;"
+CREATE_MATERIALIZED_VIEW
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "SELECT
+    start_zone,
+    end_zone,
+    average_trip_time
+FROM
+    trip_statistics_mv
+WHERE
+    average_trip_time = (
+        SELECT
+            MAX(average_trip_time)
+        FROM
+            trip_statistics_mv
+    );
+"
+   start_zone   | end_zone | average_trip_time 
+----------------+----------+-------------------
+ Yorkville East | Steinway |      86373.000000
+(1 row)
+
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "CREATE MATERIALIZED VIEW trip_statistics_mv2 AS
+SELECT
+    tz1.Zone AS start_zone,
+    tz2.Zone AS end_zone,
+    AVG(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS average_trip_time,
+    MIN(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS min_trip_time,
+    MAX(EXTRACT(EPOCH FROM (td.tpep_dropoff_datetime
+ - td.tpep_pickup_datetime
+))) AS max_trip_time,
+COUNT(*) AS num_trips
+FROM
+    trip_data td
+JOIN
+    taxi_zone tz1 ON td.PULocationID
+ = tz1.location_id
+JOIN
+    taxi_zone tz2 ON td.DOLocationID
+ = tz2.location_id
+GROUP BY
+    tz1.Zone,
+    tz2.Zone;
+"
+CREATE_MATERIALIZED_VIEW
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "SELECT
+    start_zone,
+    end_zone,
+    num_trips,
+    average_trip_time
+FROM
+    trip_statistics_mv2
+WHERE
+    average_trip_time = (
+        SELECT
+            MAX(average_trip_time)
+        FROM
+            trip_statistics_mv2
+    );
+"
+   start_zone   | end_zone | num_trips | average_trip_time 
+----------------+----------+-----------+-------------------
+ Yorkville East | Steinway |         1 |      86373.000000
+(1 row)
+
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % psql -c "WITH dynamic_filter AS (
+    SELECT
+        MAX(tpep_pickup_datetime
+) - INTERVAL '17 hours' AS start_time,
+        MAX(tpep_pickup_datetime
+) AS end_time
+    FROM
+        trip_data
+)
+SELECT
+    tz.Zone AS pickup_zone,
+    COUNT(*) AS num_pickups
+FROM
+    trip_data td
+JOIN
+    taxi_zone tz ON td.PULocationID
+ = tz.location_id
+WHERE
+    td.tpep_pickup_datetime BETWEEN (SELECT start_time FROM dynamic_filter) AND (SELECT end_time FROM dynamic_filter)
+GROUP BY
+    tz.Zone
+ORDER BY
+    num_pickups DESC
+LIMIT 3;
+"
+     pickup_zone     | num_pickups 
+---------------------+-------------
+ LaGuardia Airport   |          19
+ Lincoln Square East |          17
+ JFK Airport         |          17
+(3 rows)
+
+(.venv) (base) chinaemeremohajianya@chinaemeremsair risingwave-data-talks-workshop-2024-03-04 % 
